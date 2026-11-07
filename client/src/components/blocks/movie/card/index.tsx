@@ -12,22 +12,22 @@ import {
 interface MovieCardProps {
   title: string | undefined,
   description: string | undefined,
-  posterUrl: string | undefined
+  posterUrlPreview: string | undefined
 }
 
-export const MovieCard = ({ title, description, posterUrl }: MovieCardProps) => {
+export const MovieCard = ({ title, description, posterUrlPreview }: MovieCardProps) => {
   return (
-    <Card className="relative w-100 pt-0">
+    <Card className="relative w-70 pt-0">
       <img
-        src={posterUrl}
+        src={posterUrlPreview}
         alt="Event cover"
-        className="relative w-full aspect-video object-cover"
+        className="relative w-full h-90 aspect-video object-cover"
       />
       <CardHeader>
         <CardAction>
           <Badge variant="secondary">Featured</Badge>
         </CardAction>
-        <CardTitle>{title}</CardTitle>
+        <CardTitle className="truncate">{title}</CardTitle>
         <CardDescription className="truncate">
           {description}
         </CardDescription>
