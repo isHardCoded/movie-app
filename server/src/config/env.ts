@@ -15,4 +15,5 @@ export const env = {
 	moviesApiUrl,
 	moviesApiKey: requireEnv('KINOPOISK_API_KEY'),
 	moviesApiTimeoutMs: 8_000,
+	databaseUrl: requireEnv('DATABASE_URL'),
 }
