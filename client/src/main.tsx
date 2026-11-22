@@ -2,14 +2,17 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import { HomePage } from './pages/home'
 import { MoviePage } from './pages/movie'
+import { Layout } from './components/layout'
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 createRoot(document.getElementById('root')!).render(
 	<BrowserRouter>
 		<Routes>
-			<Route path='/' element={<HomePage />} />
-			<Route path='/movie/:id' element={<MoviePage />} />
+			<Route element={<Layout />}>
+				<Route path='/' element={<HomePage />} />
+				<Route path='/movie/:id' element={<MoviePage />} />
+			</Route>
 		</Routes>
 	</BrowserRouter>,
 )

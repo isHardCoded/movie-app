@@ -9,11 +9,21 @@ export function HomePage() {
 	const [currentPage, setCurrentPage] = useState<number>(1)
 	const [totalPages, setTotalPages] = useState<number>(1)
 
+	const [loading, setLoading] = useState<boolean>(false)
+	const [error, setError] = useState<unknown | null>(null)
+
 	useEffect(() => {
 		async function getMovies() {
-			const data = await MOVIES_SERVICE.getAll(currentPage)
-			setMovies(data.items)
-			setTotalPages(data.totalPages)
+			try {
+				setLoading(true)
+				const data = await MOVIES_SERVICE.getAll(currentPage)
+				setMovies(data.items)
+				setTotalPages(data.totalPages)
+			} catch (error) {
+				setError(error)
+			} finally {
+				setLoading(false)
+			}
 		}
 
 		getMovies()
@@ -26,7 +36,7 @@ export function HomePage() {
 
 	return (
 		<div>
-			<ul className='flex flex-wrap gap-5 mt-10'>
+			<ul className='mt-10 grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-10 xl:grid-cols-6'>
 				{movies.map(movie => (
 					<li key={movie.kinopoiskId}>
 						<MovieCard
@@ -34,6 +44,8 @@ export function HomePage() {
 							description={movie.description!}
 							posterUrlPreview={movie.posterUrlPreview}
 							ratingKinopoisk={movie.ratingKinopoisk}
+							kinopoiskId={movie.kinopoiskId}
+							loading={loading}
 						/>
 					</li>
 				))}

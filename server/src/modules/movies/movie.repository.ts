@@ -13,12 +13,10 @@ export class MovieRepository implements MovieSource {
 
 	async getMovies(page: number): Promise<unknown> {
 		const url = new URL(this.config.url)
-		url.searchParams.set('page', String(page))
 
 		const signal = AbortSignal.timeout(this.config.timeoutMs)
-		console.log(url)
 		try {
-			const response = await fetch(`${url}/collections?page=${page}`, {
+			const response = await fetch(`${url}/collections?page=${String(page)}`, {
 				method: 'GET',
 				headers: {
 					'X-API-KEY': this.config.apiKey,
@@ -45,7 +43,7 @@ export class MovieRepository implements MovieSource {
 			if (signal.aborted) {
 				throw new AppError(504, ERROR_CODES.MOVIES_API_TIMEOUT, error)
 			}
-
+			console.log(error)
 			throw new AppError(502, ERROR_CODES.MOVIES_API_ERROR, error)
 		}
 	}
