@@ -76,7 +76,7 @@ export type ProductionStatus =
 	| 'PRE_PRODUCTION'
 	| string
 
-export interface MovieResponse {
+export type MovieResponse = {
 	kinopoiskId: number
 	kinopoiskHDId?: string | null
 	imdbId?: string | null
@@ -140,4 +140,4 @@ export interface MovieResponse {
 	serial?: boolean | null
 	shortFilm?: boolean | null
 	completed?: boolean | null
-}
+} | null

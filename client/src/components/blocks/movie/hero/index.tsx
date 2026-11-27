@@ -1,7 +1,6 @@
 import { BackButton } from '@/components/ui/back-button'
 import { Button } from '@/components/ui/button'
 import type { MovieResponse } from '@/types/movie'
-import type { ReactNode } from 'react'
 import { Heart } from 'lucide-react'
 
 interface MovieHeroProps {

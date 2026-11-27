@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import {
 	Home,
@@ -6,18 +5,11 @@ import {
 	Heart,
 	Settings,
 	Search,
-	Menu,
 	Bell,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Separator } from '@/components/ui/separator'
-import {
-	Sheet,
-	SheetContent,
-	SheetTrigger,
-	SheetTitle,
-} from '@/components/ui/sheet'
 import { cn } from '@/lib/utils'
 
 const navItems = [
@@ -52,8 +44,6 @@ function NavList({ pathname }: { pathname: string }) {
 }
 
 export function Layout() {
-	const [open, setOpen] = useState(false)
-
 	return (
 		<div className='flex min-h-svh'>
 			{/* Сайдбар — десктоп */}
@@ -81,19 +71,6 @@ export function Layout() {
 			<div className='flex min-h-svh flex-1 flex-col md:pl-60'>
 				{/* Шапка */}
 				<header className='sticky top-0 z-20 flex h-14 items-center gap-2 border-b bg-background/80 px-4 backdrop-blur'>
-					{/* Кнопка мобильного меню */}
-					<Sheet open={open} onOpenChange={setOpen}>
-						<SheetTrigger asChild>
-							<Button variant='ghost' size='icon' className='md:hidden'>
-								<Menu className='size-5' />
-								<span className='sr-only'>Открыть меню</span>
-							</Button>
-						</SheetTrigger>
-						<SheetContent side='left' className='w-60 p-2'>
-							<SheetTitle className='sr-only'>Навигация</SheetTitle>
-							<NavList pathname={location.pathname} />
-						</SheetContent>
-					</Sheet>
 
 					{/* Поиск */}
 					<div className='relative ml-2 hidden flex-1 sm:block'>

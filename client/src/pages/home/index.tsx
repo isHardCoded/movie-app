@@ -34,6 +34,10 @@ export function HomePage() {
 		// window.scrollTo({ top: 0, behavior: 'smooth' })
 	}
 
+	if (error) {
+		return <div>Ошибка</div>
+	}
+
 	return (
 		<div>
 			<ul className='mt-10 grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-10 xl:grid-cols-6'>
