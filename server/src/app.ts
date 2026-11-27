@@ -21,6 +21,10 @@ const movieRepository = new MovieRepository({
 const movieService = new MovieService(movieRepository)
 const movieController = new MovieController(movieService)
 
+app.get('/api/health', (_req, res) => {
+  res.json({ status: 'ok' })
+})
+
 app.use('/api/movies', createMovieRouter(movieController))
 
 app.use((_req,_res, next) => {
