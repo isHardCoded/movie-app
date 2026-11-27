@@ -7,6 +7,10 @@ import { createMovieRouter } from './modules/movies/movie.routes'
 import { errorHandler } from './middlewares/errorHandler'
 import { AppError } from './errors/AppError'
 import { ERROR_CODES } from './constants/errors'
+import { createUserRouter } from './modules/users/user.routes'
+import { UserController } from './modules/users/user.controller'
+import { UserService } from './modules/users/user.service'
+import { UserRepository } from './modules/users/user.repository'
 
 const app = express()
 
@@ -21,11 +25,17 @@ const movieRepository = new MovieRepository({
 const movieService = new MovieService(movieRepository)
 const movieController = new MovieController(movieService)
 
+const userRepository = new UserRepository()
+const userService = new UserService(userRepository)
+const userController = new UserController(userService)
+
 app.get('/api/health', (_req, res) => {
   res.json({ status: 'ok' })
 })
 
 app.use('/api/movies', createMovieRouter(movieController))
+
+app.use('/api/users', createUserRouter(userController))
 
 app.use((_req,_res, next) => {
 	next(new AppError(404, ERROR_CODES.ROUTE_NOT_FOUND))
