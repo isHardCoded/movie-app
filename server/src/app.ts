@@ -8,7 +8,7 @@ import { errorHandler } from './middlewares/errorHandler'
 import { AppError } from './errors/AppError'
 import { ERROR_CODES } from './constants/errors'
 
-export const app = express()
+const app = express()
 
 app.use(express.json())
 
@@ -28,3 +28,5 @@ app.use((_req,_res, next) => {
 })
 
 app.use(errorHandler)
+
+export default app
