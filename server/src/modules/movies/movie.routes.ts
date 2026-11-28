@@ -6,6 +6,7 @@ export function createMovieRouter(controller: MovieController): Router {
 
 	router.get('/', controller.getMovies)
 	router.get('/:id', controller.getMovie)
+	router.get('/videos/:id', controller.getVideos)
 
 	return router
 }

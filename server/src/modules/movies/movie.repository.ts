@@ -46,7 +46,6 @@ export class MovieRepository implements MovieSource {
 			if (signal.aborted) {
 				throw new AppError(504, ERROR_CODES.MOVIES_API_TIMEOUT, error)
 			}
-			console.log(error)
 			throw new AppError(502, ERROR_CODES.MOVIES_API_ERROR, error)
 		}
 	}
@@ -86,6 +85,42 @@ export class MovieRepository implements MovieSource {
 			}
 
 			throw new AppError(502, ERROR_CODES.MOVIE_API_ERROR, error)
+		}
+	}
+
+	async getVideos(id: number): Promise<unknown> {
+		const url = new URL(this.config.url)
+
+		const signal = AbortSignal.timeout(this.config.timeoutMs)
+		try {
+			const response = await fetch(`${url}/${id}/videos`, {
+				method: 'GET',
+				headers: {
+					'X-API-KEY': this.config.apiKey,
+					'Content-Type': 'application/json',
+				},
+				signal,
+			})
+
+			if (!response.ok) {
+				throw new AppError(
+					502,
+					ERROR_CODES.VIDEOS_API_ERROR,
+					new Error(`Videos API returned HTTP ${response.status}`),
+				)
+			}
+
+			const data: unknown = await response.json()
+			return data
+		} catch (error: unknown) {
+			if (error instanceof AppError) {
+				throw error
+			}
+
+			if (signal.aborted) {
+				throw new AppError(504, ERROR_CODES.MOVIES_API_TIMEOUT, error)
+			}
+			throw new AppError(502, ERROR_CODES.VIDEOS_API_ERROR, error)
 		}
 	}
 }

@@ -4,6 +4,8 @@ export const ERROR_CODES = {
 	MOVIES_API_ERROR: 'MOVIES_API_ERROR',
 	MOVIES_API_TIMEOUT: 'MOVIES_API_TIMEOUT',
 	MOVIE_API_ERROR: 'MOVIE_API_ERROR',
+	VIDEOS_API_ERROR: 'VIDEOS_API_ERROR',
+	VIDEOS_API_TIMEOUT: 'VIDEOS_API_TIMOUT',
 	ROUTE_NOT_FOUND: 'ROUTE_NOT_FOUND',
 	INTERNAL_ERROR: 'INTERNAL_ERROR',
 } as const
@@ -16,6 +18,8 @@ export const ERROR_MESSAGES: Record<ErrorCode, string> = {
 	MOVIES_API_ERROR: 'Не удалось получить список фильмов',
 	MOVIES_API_TIMEOUT: 'Сервис фильмов не ответил вовремя',
 	MOVIE_API_ERROR: 'Не удалось получить инфморацию о фильме',
+	VIDEOS_API_ERROR: 'Не удалось получить информацию о видео',
+	VIDEOS_API_TIMOUT: 'Сервис видео не ответил вовремя',
 	ROUTE_NOT_FOUND: 'Маршрут не найден',
 	INTERNAL_ERROR: 'Внутреняя ошибка сервера',
 }

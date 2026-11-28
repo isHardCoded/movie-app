@@ -10,4 +10,8 @@ export class MovieService {
 	async getMovie(id: number): Promise<unknown> {
 		return this.movieSource.getMovie(id)
 	}
+
+	async getVideos(id: number): Promise<unknown> {
+		return this.movieSource.getVideos(id)
+	}
 }

@@ -37,4 +37,19 @@ export class MovieController {
 			next(error)
 		}
 	}
+
+	getVideos = async (
+		req: Request,
+		res: Response,
+		next: NextFunction,
+	): Promise<void> => {
+		try {
+			const id = Number(req.params.id)
+			const videos = await this.movieService.getVideos(id)
+
+			res.status(200).json(videos)
+		} catch (error: unknown) {
+			next(error)
+		}
+	}
 }
