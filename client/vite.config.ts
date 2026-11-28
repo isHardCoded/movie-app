@@ -19,6 +19,12 @@ export default defineConfig({
 				target: 'https://widgets.kinopoisk.ru',
 				changeOrigin: true,
 				rewrite: path => path.replace(/^\/kp-widget/, ''),
+				configure: proxy => {
+					proxy.on('proxyRes', proxyRes => {
+						delete proxyRes.headers['x-frame-options']
+						delete proxyRes.headers['content-security-policy']
+					})
+				},
 			},
 		},
 	},
