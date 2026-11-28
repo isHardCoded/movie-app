@@ -11,19 +11,22 @@ type MoviesApiConfig = {
 export class MovieRepository implements MovieSource {
 	constructor(private readonly config: MoviesApiConfig) {}
 
-	async getMovies(page: number): Promise<unknown> {
+	async getMovies(page: number, order: string): Promise<unknown> {
 		const url = new URL(this.config.url)
 
 		const signal = AbortSignal.timeout(this.config.timeoutMs)
 		try {
-			const response = await fetch(`${url}/collections?page=${String(page)}`, {
-				method: 'GET',
-				headers: {
-					'X-API-KEY': this.config.apiKey,
-					'Content-Type': 'application/json',
+			const response = await fetch(
+				`${url}?page=${String(page)}&order=${order}`,
+				{
+					method: 'GET',
+					headers: {
+						'X-API-KEY': this.config.apiKey,
+						'Content-Type': 'application/json',
+					},
+					signal,
 				},
-				signal,
-			})
+			)
 
 			if (!response.ok) {
 				throw new AppError(

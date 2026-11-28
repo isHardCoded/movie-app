@@ -1,4 +1,4 @@
 export interface MovieSource {
-	getMovies(page: number): Promise<unknown>
+	getMovies(page: number, order: string): Promise<unknown>
 	getMovie(id: number): Promise<unknown>
 }

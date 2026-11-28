@@ -3,9 +3,25 @@ import type { Movie } from '@/types/movie'
 import { useEffect, useState } from 'react'
 import { MovieCard } from '@/components/blocks/movie/card'
 import { MoviesPagination } from '@/components/blocks/movie/pagination'
+import {
+	Select,
+	SelectContent,
+	SelectGroup,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from '@/components/ui/select'
+
+type Order = 'RATING' | 'NUM_VOTE' | 'YEAR'
+
+type SortOption = {
+	label: string
+	value: Order
+}
 
 export function HomePage() {
 	const [movies, setMovies] = useState<Movie[]>([])
+	const [order, setOrder] = useState<Order>('RATING')
 	const [currentPage, setCurrentPage] = useState<number>(1)
 	const [totalPages, setTotalPages] = useState<number>(1)
 
@@ -16,7 +32,7 @@ export function HomePage() {
 		async function getMovies() {
 			try {
 				setLoading(true)
-				const data = await MOVIES_SERVICE.getAll(currentPage)
+				const data = await MOVIES_SERVICE.getAll(currentPage, order)
 				setMovies(data.items)
 				setTotalPages(data.totalPages)
 			} catch (error) {
@@ -27,7 +43,7 @@ export function HomePage() {
 		}
 
 		getMovies()
-	}, [currentPage])
+	}, [currentPage, order])
 
 	const handlePageChange = (page: number) => {
 		setCurrentPage(page)
@@ -38,8 +54,32 @@ export function HomePage() {
 		return <div>Ошибка</div>
 	}
 
+	const items: SortOption[] = [
+		{ label: 'По рейтингу', value: 'RATING' },
+		{ label: 'По оценкам', value: 'NUM_VOTE' },
+		{ label: 'По году', value: 'YEAR' },
+	]
+
 	return (
 		<div>
+			<Select items={items}>
+				<SelectTrigger className='w-[180px]'>
+					<SelectValue placeholder='Сортировка' />
+				</SelectTrigger>
+				<SelectContent>
+					<SelectGroup>
+						{items.map(item => (
+							<SelectItem
+								onClick={() => setOrder(item.value)}
+								key={item.value}
+								value={item.value}
+							>
+								{item.label}
+							</SelectItem>
+						))}
+					</SelectGroup>
+				</SelectContent>
+			</Select>
 			<ul className='mt-10 grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-10 xl:grid-cols-6'>
 				{movies.map(movie => (
 					<li key={movie.kinopoiskId}>
